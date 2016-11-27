@@ -2,7 +2,9 @@ package com.prices.products.productsprices;
 
 import android.graphics.Bitmap;
 
-public class Candidato {
+import java.io.Serializable;
+
+public class Candidato implements Serializable {
 
     private String id;
     private String nome;

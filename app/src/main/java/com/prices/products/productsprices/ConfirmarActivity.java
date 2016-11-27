@@ -6,13 +6,77 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import okhttp3.internal.Util;
+
+import static com.prices.products.productsprices.R.id.textViewNome;
+import static com.prices.products.productsprices.R.id.vereador;
 
 public class ConfirmarActivity extends AppCompatActivity {
+
+    private Candidato votoPrefeito;
+    private Candidato votoVereador;
+    private String token;
+
+    private TextView nomePrefeito;
+    private TextView partidoPrefeito;
+    private ImageView imagemPrefeito;
+
+    private TextView nomeVereador;
+    private TextView partidoVereador;
+    private ImageView imagemVereador;
+
+    private Button confirmar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmar);
+
+        nomePrefeito = (TextView) findViewById(R.id.nomePrefeito);
+        partidoPrefeito = (TextView) findViewById(R.id.partidoPrefeito);
+        imagemPrefeito = (ImageView) findViewById(R.id.imagemPrefeito);
+
+        nomeVereador = (TextView) findViewById(R.id.nomeVereador);
+        partidoVereador = (TextView) findViewById(R.id.partidoVereador);
+        imagemVereador = (ImageView) findViewById(R.id.imagemVereador);
+
+        confirmar = (Button) findViewById(R.id.confirmar);
+
+        if (getIntent() != null) {
+            if (getIntent().getStringExtra("votoPrefeito") != null) {
+                votoPrefeito = (Candidato) getIntent().getSerializableExtra("votoPrefeito");
+                nomePrefeito.setText(votoPrefeito.getNome());
+                partidoPrefeito.setText(votoPrefeito.getPartido());
+                imagemPrefeito.setImageBitmap(votoPrefeito.getFoto());
+            }
+            if (getIntent().getStringExtra("votoVereador") != null) {
+                votoVereador = (Candidato) getIntent().getSerializableExtra("votoVereador");
+                nomeVereador.setText(votoVereador.getNome());
+                partidoVereador.setText(votoVereador.getPartido());
+                imagemVereador.setImageBitmap(votoVereador.getFoto());
+            }
+            if (getIntent().getStringExtra("token") != null) {
+                token = getIntent().getStringExtra("token");
+            }
+        }
+
+        confirmar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utils.votar(token, votoVereador, votoPrefeito);
+                Toast.makeText(getApplicationContext(), "Voto computado com sucesso", Toast.LENGTH_LONG);
+            }
+        });
+
     }
 
     @Override

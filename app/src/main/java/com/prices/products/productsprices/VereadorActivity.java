@@ -16,25 +16,36 @@ import java.util.List;
 
 public class VereadorActivity extends AppCompatActivity {
 
-    private List<Candidato> candidatos;
     private ListView listView;
+    private Candidato votoPrefeito;
+    private Candidato votoVereador;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vereador);
 
-        candidatos = new ArrayList<>();
-
         listView = (ListView) findViewById(R.id.list);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), "Votou no candidato" + candidatos.get(i).getNome(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Votou no candidato " + ((ListCellCandidatos) adapterView.getAdapter()).candidatos.get(i).getNome(), Toast.LENGTH_LONG).show();
             }
         });
 
+        if (getIntent() != null) {
+            if (getIntent().getStringExtra("votoPrefeito") != null) {
+                votoPrefeito = (Candidato) getIntent().getSerializableExtra("votoPrefeito");
+            }
+            if (getIntent().getStringExtra("votoVereador") != null) {
+                votoVereador = (Candidato) getIntent().getSerializableExtra("votoVereador");
+            }
+            if (getIntent().getStringExtra("token") != null) {
+                token = getIntent().getStringExtra("token");
+            }
+        }
         new DownloadTask(this, Utils.VEREADORES_URL, listView).execute();
     }
 

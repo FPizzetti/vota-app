@@ -15,6 +15,8 @@ import org.json.JSONObject;
 public class DashboardActivity extends AppCompatActivity {
 
     private TextView textViewNome;
+    private Candidato votoPrefeito;
+    private Candidato votoVereador;
     private String token;
 
     @Override
@@ -27,12 +29,24 @@ public class DashboardActivity extends AppCompatActivity {
 
         textViewNome = (TextView) findViewById(R.id.textViewNome);
 
-        try {
-            token = getIntent().getStringExtra("token");
-            jsonObject = new JSONObject(JWTUtils.decoded(token));
-            textViewNome.setText(" " + jsonObject.getString("name"));
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (getIntent() != null) {
+            if (getIntent().getStringExtra("votoPrefeito") != null) {
+                votoPrefeito = (Candidato) getIntent().getSerializableExtra("votoPrefeito");
+            }
+            if (getIntent().getStringExtra("votoVereador") != null) {
+                votoVereador = (Candidato) getIntent().getSerializableExtra("votoVereador");
+            }
+            if (getIntent().getStringExtra("token") != null) {
+                token = getIntent().getStringExtra("token");
+            }
+
+            try {
+                token = getIntent().getStringExtra("token");
+                jsonObject = new JSONObject(JWTUtils.decoded(token));
+                textViewNome.setText(" " + jsonObject.getString("name"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 

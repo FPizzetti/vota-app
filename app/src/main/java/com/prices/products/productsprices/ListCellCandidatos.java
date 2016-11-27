@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ListCellCandidatos extends BaseAdapter {
 
-    private List<Candidato> candidatos;
+    public List<Candidato> candidatos;
     private final Activity context;
 
     public ListCellCandidatos(Activity context, List<Candidato> list) {
@@ -38,12 +38,12 @@ public class ListCellCandidatos extends BaseAdapter {
     public View getView(int position, final View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.list_item, null, true);
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.nome);
-        TextView txtId = (TextView) rowView.findViewById(R.id.partido);
+        TextView txtTitle = (TextView) rowView.findViewById(R.id.nomePrefeito);
+        TextView txtId = (TextView) rowView.findViewById(R.id.partidoPrefeito);
         ImageView image = (ImageView) rowView.findViewById(R.id.foto);
 
         txtTitle.setText(candidatos.get(position).getNome());
-        txtId.setText(candidatos.get(position).getId());
+        txtId.setText(candidatos.get(position).getPartido());
         image.setImageBitmap(candidatos.get(position).getFoto());
 
         return rowView;
