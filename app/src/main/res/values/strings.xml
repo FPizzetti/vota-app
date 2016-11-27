@@ -10,11 +10,6 @@
     <string name="cadastrar">Cadastrar</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="search_title">Pesquisar</string>
-    <string name="quantidade">Quantidade:</string>
-    <string name="unidadeMedida">Unidade de medida:</string>
-    <string name="tipoEmbalagem">Tipo de embalagem:</string>
-    <string name="categoria">Categoria:</string>
-    <string name="nome_produto">Nome:</string>
-    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 
 </resources>

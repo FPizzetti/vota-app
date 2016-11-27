@@ -1,39 +1,41 @@
 package com.prices.products.productsprices;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 
-public class DashboardActivity extends AppCompatActivity {
+public class VereadorActivity extends AppCompatActivity {
 
-    private TextView textViewNome;
-    private String token;
+    private List<Candidato> candidatos;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        JSONObject jsonObject = null;
+        setContentView(R.layout.activity_vereador);
 
-        textViewNome = (TextView) findViewById(R.id.textViewNome);
+        candidatos = new ArrayList<>();
 
-        try {
-            token = getIntent().getStringExtra("token");
-            jsonObject = new JSONObject(JWTUtils.decoded(token));
-            textViewNome.setText(" " + jsonObject.getString("name"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        listView = (ListView) findViewById(R.id.list);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(), "Votou no candidato" + candidatos.get(i).getNome(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        new DownloadTask(this, Utils.VEREADORES_URL, listView).execute();
     }
 
     @Override
@@ -71,4 +73,5 @@ public class DashboardActivity extends AppCompatActivity {
         Intent i = new Intent(this, activity);
         startActivity(i);
     }
+
 }

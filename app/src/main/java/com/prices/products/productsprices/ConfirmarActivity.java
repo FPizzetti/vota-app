@@ -1,39 +1,18 @@
 package com.prices.products.productsprices;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-public class DashboardActivity extends AppCompatActivity {
-
-    private TextView textViewNome;
-    private String token;
+public class ConfirmarActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        JSONObject jsonObject = null;
-
-        textViewNome = (TextView) findViewById(R.id.textViewNome);
-
-        try {
-            token = getIntent().getStringExtra("token");
-            jsonObject = new JSONObject(JWTUtils.decoded(token));
-            textViewNome.setText(" " + jsonObject.getString("name"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        setContentView(R.layout.activity_confirmar);
     }
 
     @Override
@@ -71,4 +50,5 @@ public class DashboardActivity extends AppCompatActivity {
         Intent i = new Intent(this, activity);
         startActivity(i);
     }
+
 }
