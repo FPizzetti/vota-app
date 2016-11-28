@@ -12,6 +12,8 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import model.Candidato;
+
 public class DashboardActivity extends AppCompatActivity {
 
     private TextView textViewNome;
@@ -30,10 +32,10 @@ public class DashboardActivity extends AppCompatActivity {
         textViewNome = (TextView) findViewById(R.id.textViewNome);
 
         if (getIntent() != null) {
-            if (getIntent().getStringExtra("votoPrefeito") != null) {
+            if (getIntent().getSerializableExtra("votoPrefeito") != null) {
                 votoPrefeito = (Candidato) getIntent().getSerializableExtra("votoPrefeito");
             }
-            if (getIntent().getStringExtra("votoVereador") != null) {
+            if (getIntent().getSerializableExtra("votoVereador") != null) {
                 votoVereador = (Candidato) getIntent().getSerializableExtra("votoVereador");
             }
             if (getIntent().getStringExtra("token") != null) {
@@ -83,6 +85,17 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void openActivity(Class activity) {
         Intent i = new Intent(this, activity);
+        if (votoVereador != null) {
+            votoVereador.setFoto(null);
+            i.putExtra("votoVereador", votoVereador);
+        }
+        if (votoPrefeito != null) {
+            votoPrefeito.setFoto(null);
+            i.putExtra("votoPrefeito", votoPrefeito);
+        }
+        if (token != null) {
+            i.putExtra("token", token);
+        }
         startActivity(i);
     }
 }

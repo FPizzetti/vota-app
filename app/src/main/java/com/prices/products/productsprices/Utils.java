@@ -14,6 +14,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import dao.DAO;
+import model.Candidato;
+
 public class Utils {
 
     public static String PREFEITOS_URL = "https://dl.dropboxusercontent.com/u/40990541/prefeito.json";
@@ -50,26 +53,16 @@ public class Utils {
 
     public static String votar(String token, Candidato vereador, Candidato prefeito) {
         String response = null;
-        String json = "{" + "mayor_id:" + prefeito.getId() + "," +
-                "councilman_id:" + vereador.getId() + "}";
+
+        String votoPrefeito = (prefeito != null ? prefeito.getId() : "null");
+        String votoVereador = (vereador != null ? vereador.getId() : "null");
+        String json = "{" + "\"mayor_id\":" + votoPrefeito + "," +
+                "\"councilman_id\":" + votoVereador + "}";
+
+        DAO dao = new DAO();
         try {
-            URL url = new URL(VOTOS_URL + token);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(5000);
-            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            conn.setRequestMethod("POST");
-
-            OutputStream os = conn.getOutputStream();
-            os.write(json.getBytes("UTF-8"));
-
-            // read the response
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            JSONObject jsonObject = new JSONObject(convertStreamToString(in));
-            os.close();
-
-        } catch (Exception e) {
+            response = dao.doPost("votes?token=" + token, json);
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return response;

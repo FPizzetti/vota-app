@@ -11,8 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import model.Candidato;
 
 public class VereadorActivity extends AppCompatActivity {
 
@@ -31,15 +30,16 @@ public class VereadorActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), "Votou no candidato " + ((ListCellCandidatos) adapterView.getAdapter()).candidatos.get(i).getNome(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Candidato " + ((ListCellCandidatos) adapterView.getAdapter()).candidatos.get(i).getNome() + " selecionado", Toast.LENGTH_LONG).show();
+                votoVereador = ((ListCellCandidatos) adapterView.getAdapter()).candidatos.get(i);
             }
         });
 
         if (getIntent() != null) {
-            if (getIntent().getStringExtra("votoPrefeito") != null) {
+            if (getIntent().getSerializableExtra("votoPrefeito") != null) {
                 votoPrefeito = (Candidato) getIntent().getSerializableExtra("votoPrefeito");
             }
-            if (getIntent().getStringExtra("votoVereador") != null) {
+            if (getIntent().getSerializableExtra("votoVereador") != null) {
                 votoVereador = (Candidato) getIntent().getSerializableExtra("votoVereador");
             }
             if (getIntent().getStringExtra("token") != null) {
@@ -82,6 +82,17 @@ public class VereadorActivity extends AppCompatActivity {
 
     private void openActivity(Class activity) {
         Intent i = new Intent(this, activity);
+        if (votoVereador != null) {
+            votoVereador.setFoto(null);
+            i.putExtra("votoVereador", votoVereador);
+        }
+        if (votoPrefeito != null) {
+            votoPrefeito.setFoto(null);
+            i.putExtra("votoPrefeito", votoPrefeito);
+        }
+        if (token != null) {
+            i.putExtra("token", token);
+        }
         startActivity(i);
     }
 

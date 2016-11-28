@@ -13,6 +13,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Candidato;
+
 public class DownloadTask extends AsyncTask<String, Void, Void> {
 
     private Activity activity;

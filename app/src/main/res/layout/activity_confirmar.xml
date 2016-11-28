@@ -12,97 +12,76 @@
     tools:context="com.prices.products.productsprices.ConfirmarActivity">
 
     <Button
-        android:text="Confirmar"
+        android:id="@+id/confirmar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true"
+        android:text="Confirmar" />
 
     <TextView
-        android:text="Voto Prefeito"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView2" />
+        android:text="Voto Prefeito"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold" />
 
     <TextView
-        android:text="Voto Vereador"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
         android:layout_marginTop="188dp"
-        android:id="@+id/textView3" />
+        android:text="Voto Vereador"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold" />
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/nomeVereador"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
-        android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="23dp"
-        android:id="@+id/imagemVereador" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
-        android:layout_marginTop="24dp"
-        android:id="@+id/imagemPrefeito"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="12dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imagemPrefeito"
-        android:layout_toRightOf="@+id/imagemPrefeito"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="22dp"
-        android:id="@+id/nomePrefeito"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imagemPrefeito"
-        android:layout_alignLeft="@+id/nomePrefeito"
-        android:layout_alignStart="@+id/nomePrefeito"
-        android:id="@+id/partidoPrefeito"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imagemVereador"
-        android:layout_alignLeft="@+id/partidoPrefeito"
-        android:layout_alignStart="@+id/partidoPrefeito"
-        android:id="@+id/nomeVereador"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imagemVereador"
-        android:layout_alignLeft="@+id/nomeVereador"
-        android:layout_alignStart="@+id/nomeVereador"
         android:id="@+id/partidoVereador"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nomeVereador"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/partidoVereador"
+        android:layout_toRightOf="@+id/partidoVereador"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:id="@+id/partidoPrefeito"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/nomePrefeito"
+        android:layout_marginTop="12dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:id="@+id/nomePrefeito"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="14dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 </RelativeLayout>

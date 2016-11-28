@@ -1,4 +1,4 @@
-package com.prices.products.productsprices;
+package model;
 
 import android.graphics.Bitmap;
 

@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import model.Candidato;
+
 public class ListCellCandidatos extends BaseAdapter {
 
     public List<Candidato> candidatos;

@@ -3,6 +3,7 @@ package com.prices.products.productsprices;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,13 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import okhttp3.internal.Util;
-
-import static com.prices.products.productsprices.R.id.textViewNome;
-import static com.prices.products.productsprices.R.id.vereador;
+import model.Candidato;
 
 public class ConfirmarActivity extends AppCompatActivity {
 
@@ -28,11 +23,9 @@ public class ConfirmarActivity extends AppCompatActivity {
 
     private TextView nomePrefeito;
     private TextView partidoPrefeito;
-    private ImageView imagemPrefeito;
 
     private TextView nomeVereador;
     private TextView partidoVereador;
-    private ImageView imagemVereador;
 
     private Button confirmar;
 
@@ -43,26 +36,26 @@ public class ConfirmarActivity extends AppCompatActivity {
 
         nomePrefeito = (TextView) findViewById(R.id.nomePrefeito);
         partidoPrefeito = (TextView) findViewById(R.id.partidoPrefeito);
-        imagemPrefeito = (ImageView) findViewById(R.id.imagemPrefeito);
 
         nomeVereador = (TextView) findViewById(R.id.nomeVereador);
         partidoVereador = (TextView) findViewById(R.id.partidoVereador);
-        imagemVereador = (ImageView) findViewById(R.id.imagemVereador);
 
         confirmar = (Button) findViewById(R.id.confirmar);
 
         if (getIntent() != null) {
-            if (getIntent().getStringExtra("votoPrefeito") != null) {
+            if (getIntent().getSerializableExtra("votoPrefeito") != null) {
                 votoPrefeito = (Candidato) getIntent().getSerializableExtra("votoPrefeito");
                 nomePrefeito.setText(votoPrefeito.getNome());
                 partidoPrefeito.setText(votoPrefeito.getPartido());
-                imagemPrefeito.setImageBitmap(votoPrefeito.getFoto());
+            } else {
+                nomePrefeito.setText("Voto nulo");
             }
-            if (getIntent().getStringExtra("votoVereador") != null) {
+            if (getIntent().getSerializableExtra("votoVereador") != null) {
                 votoVereador = (Candidato) getIntent().getSerializableExtra("votoVereador");
                 nomeVereador.setText(votoVereador.getNome());
                 partidoVereador.setText(votoVereador.getPartido());
-                imagemVereador.setImageBitmap(votoVereador.getFoto());
+            } else {
+                nomeVereador.setText("Voto nulo");
             }
             if (getIntent().getStringExtra("token") != null) {
                 token = getIntent().getStringExtra("token");
@@ -72,8 +65,7 @@ public class ConfirmarActivity extends AppCompatActivity {
         confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utils.votar(token, votoVereador, votoPrefeito);
-                Toast.makeText(getApplicationContext(), "Voto computado com sucesso", Toast.LENGTH_LONG);
+                votar();
             }
         });
 
@@ -112,7 +104,28 @@ public class ConfirmarActivity extends AppCompatActivity {
 
     private void openActivity(Class activity) {
         Intent i = new Intent(this, activity);
+        if (votoVereador != null) {
+            votoVereador.setFoto(null);
+            i.putExtra("votoVereador", votoVereador);
+        }
+        if (votoPrefeito != null) {
+            votoPrefeito.setFoto(null);
+            i.putExtra("votoPrefeito", votoPrefeito);
+        }
+        if (token != null) {
+            i.putExtra("token", token);
+        }
         startActivity(i);
     }
+
+    private void votar() {
+        new VotarTask(this, token, votoVereador, votoPrefeito).execute();
+    }
+
+    public void onAfterVotar(String message) {
+        Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+        openActivity(DashboardActivity.class);
+    }
+
 
 }

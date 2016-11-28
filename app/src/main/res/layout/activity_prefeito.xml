@@ -4,6 +4,8 @@
     android:id="@+id/activity_prefeito"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
     tools:context="com.prices.products.productsprices.PrefeitoActivity">
 
     <ListView
