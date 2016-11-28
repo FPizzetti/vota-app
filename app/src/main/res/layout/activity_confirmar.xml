@@ -66,17 +66,17 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <TextView
-        android:id="@+id/partidoPrefeito"
+        android:id="@+id/partidoCandidato"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/nomePrefeito"
+        android:layout_below="@+id/nomeCandidato"
         android:layout_marginTop="12dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <TextView
-        android:id="@+id/nomePrefeito"
+        android:id="@+id/nomeCandidato"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

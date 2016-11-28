@@ -1,42 +1,54 @@
 package com.prices.products.productsprices;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import model.Candidato;
 
-public class VereadorActivity extends AppCompatActivity {
+public class CandidatosActivity extends AppCompatActivity {
 
-    private ListView listView;
     private Candidato votoPrefeito;
     private Candidato votoVereador;
     private String token;
 
+    private TextView nomeCandidato;
+    private TextView partidoCandidato;
+    private ImageView imageView;
+
+    private Button confirmar;
+
+    private int tipo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vereador);
+        setContentView(R.layout.activity_confirmar);
 
-        listView = (ListView) findViewById(R.id.list);
+        nomeCandidato = (TextView) findViewById(R.id.nomeCandidato);
+        partidoCandidato = (TextView) findViewById(R.id.partidoCandidato);
+        imageView = (ImageView) findViewById(R.id.imageView);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                openActivity(((ListCellCandidatos) adapterView.getAdapter()).candidatos.get(i));
-            }
-        });
+        confirmar = (Button) findViewById(R.id.confirmar);
 
         if (getIntent() != null) {
             if (getIntent().getSerializableExtra("votoPrefeito") != null) {
                 votoPrefeito = (Candidato) getIntent().getSerializableExtra("votoPrefeito");
+            }
+            if (getIntent().getSerializableExtra("candidatoSelecionado") != null) {
+                Candidato c = (Candidato) getIntent().getSerializableExtra("candidatoSelecionado");
+                tipo = getIntent().getIntExtra("tipo", 0);
+                nomeCandidato.setText(c.getNome());
+                partidoCandidato.setText(c.getPartido());
+                imageView.setImageBitmap(Utils.stringToBitMap(getIntent().getStringExtra("imagem")));
             }
             if (getIntent().getSerializableExtra("votoVereador") != null) {
                 votoVereador = (Candidato) getIntent().getSerializableExtra("votoVereador");
@@ -45,7 +57,14 @@ public class VereadorActivity extends AppCompatActivity {
                 token = getIntent().getStringExtra("token");
             }
         }
-        new DownloadTask(this, Utils.VEREADORES_URL, listView).execute();
+
+        confirmar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                votar();
+            }
+        });
+
     }
 
     @Override
@@ -68,7 +87,7 @@ public class VereadorActivity extends AppCompatActivity {
                 openActivity(DashboardActivity.class);
                 return true;
             case R.id.confirmar:
-                openActivity(ConfirmarActivity.class);
+                openActivity(CandidatosActivity.class);
                 return true;
             case R.id.sair:
                 openActivity(LoginActivity.class);
@@ -84,10 +103,12 @@ public class VereadorActivity extends AppCompatActivity {
         if (votoVereador != null) {
             votoVereador.setFoto(null);
             i.putExtra("votoVereador", votoVereador);
+            i.putExtra("tipo", 2);
         }
         if (votoPrefeito != null) {
             votoPrefeito.setFoto(null);
             i.putExtra("votoPrefeito", votoPrefeito);
+            i.putExtra("tipo", 1);
         }
         if (token != null) {
             i.putExtra("token", token);
@@ -108,11 +129,17 @@ public class VereadorActivity extends AppCompatActivity {
         if (token != null) {
             i.putExtra("token", token);
         }
-        i.putExtra("imagem", Utils.bitMapToString(candidato.getFoto()));
-        candidato.setFoto(null);
-        i.putExtra("candidatoSelecionado", candidato);
-        i.putExtra("tipo", 2);
         startActivity(i);
     }
+
+    private void votar() {
+        if (tipo == 1) {
+            votoPrefeito = (Candidato) getIntent().getSerializableExtra("candidatoSelecionado");
+        } else {
+            votoVereador = (Candidato) getIntent().getSerializableExtra("candidatoSelecionado");
+        }
+        openActivity(DashboardActivity.class);
+    }
+
 
 }

@@ -19,6 +19,7 @@ public class PrefeitoActivity extends AppCompatActivity {
 
     private Candidato votoPrefeito;
     private Candidato votoVereador;
+
     private String token;
 
     @Override
@@ -31,8 +32,7 @@ public class PrefeitoActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), "Candidato " + ((ListCellCandidatos) adapterView.getAdapter()).candidatos.get(i).getNome() + " selecionado", Toast.LENGTH_LONG).show();
-                votoPrefeito = ((ListCellCandidatos) adapterView.getAdapter()).candidatos.get(i);
+                openActivity(((ListCellCandidatos) adapterView.getAdapter()).candidatos.get(i));
             }
         });
 
@@ -97,4 +97,26 @@ public class PrefeitoActivity extends AppCompatActivity {
         }
         startActivity(i);
     }
+
+    private void openActivity(Candidato candidato) {
+        Intent i = new Intent(this, CandidatosActivity.class);
+        if (votoVereador != null) {
+            votoVereador.setFoto(null);
+            i.putExtra("votoVereador", votoVereador);
+        }
+        if (votoPrefeito != null) {
+            votoPrefeito.setFoto(null);
+            i.putExtra("votoPrefeito", votoPrefeito);
+        }
+        if (token != null) {
+            i.putExtra("token", token);
+        }
+        i.putExtra("imagem", Utils.bitMapToString(candidato.getFoto()));
+        candidato.setFoto(null);
+        i.putExtra("candidatoSelecionado", candidato);
+        i.putExtra("tipo", 1);
+        startActivity(i);
+    }
+
+
 }

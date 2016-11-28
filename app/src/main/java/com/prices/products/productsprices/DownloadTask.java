@@ -57,7 +57,7 @@ public class DownloadTask extends AsyncTask<String, Void, Void> {
                 candidato.setNome(t.getString("nome"));
                 candidato.setPartido(t.getString("partido"));
                 candidato.setFoto(Utils.baixarImagem(t.getString("foto")));
-
+                candidato.setFotoUrl(t.getString("foto"));
                 candidatos.add(candidato);
             }
 

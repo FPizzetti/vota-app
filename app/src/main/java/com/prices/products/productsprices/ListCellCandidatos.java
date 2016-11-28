@@ -40,8 +40,8 @@ public class ListCellCandidatos extends BaseAdapter {
     public View getView(int position, final View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.list_item, null, true);
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.nomePrefeito);
-        TextView txtId = (TextView) rowView.findViewById(R.id.partidoPrefeito);
+        TextView txtTitle = (TextView) rowView.findViewById(R.id.nomeCandidato);
+        TextView txtId = (TextView) rowView.findViewById(R.id.partidoCandidato);
         ImageView image = (ImageView) rowView.findViewById(R.id.foto);
 
         txtTitle.setText(candidatos.get(position).getNome());

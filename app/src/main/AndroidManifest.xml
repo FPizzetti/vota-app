@@ -26,6 +26,7 @@
         <activity android:name=".VereadorActivity" />
         <activity android:name=".PrefeitoActivity" />
         <activity android:name=".ConfirmarActivity"></activity>
+        <activity android:name=".CandidatosActivity"></activity>
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ public class Candidato implements Serializable {
     private String nome;
     private String partido;
     private Bitmap foto;
+    private String fotoUrl;
 
     public String getId() {
         return id;
@@ -41,5 +42,13 @@ public class Candidato implements Serializable {
 
     public void setFoto(Bitmap foto) {
         this.foto = foto;
+    }
+
+    public String getFotoUrl() {
+        return fotoUrl;
+    }
+
+    public void setFotoUrl(String fotoUrl) {
+        this.fotoUrl = fotoUrl;
     }
 }

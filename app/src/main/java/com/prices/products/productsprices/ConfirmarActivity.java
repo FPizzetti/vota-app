@@ -1,15 +1,13 @@
 package com.prices.products.productsprices;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +32,8 @@ public class ConfirmarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmar);
 
-        nomePrefeito = (TextView) findViewById(R.id.nomePrefeito);
-        partidoPrefeito = (TextView) findViewById(R.id.partidoPrefeito);
+        nomePrefeito = (TextView) findViewById(R.id.nomeCandidato);
+        partidoPrefeito = (TextView) findViewById(R.id.partidoCandidato);
 
         nomeVereador = (TextView) findViewById(R.id.nomeVereador);
         partidoVereador = (TextView) findViewById(R.id.partidoVereador);
@@ -49,6 +47,8 @@ public class ConfirmarActivity extends AppCompatActivity {
                 partidoPrefeito.setText(votoPrefeito.getPartido());
             } else {
                 nomePrefeito.setText("Voto nulo");
+                Toast.makeText(this, "Vote em um prefeito", Toast.LENGTH_LONG);
+                confirmar.setEnabled(false);
             }
             if (getIntent().getSerializableExtra("votoVereador") != null) {
                 votoVereador = (Candidato) getIntent().getSerializableExtra("votoVereador");
@@ -56,6 +56,8 @@ public class ConfirmarActivity extends AppCompatActivity {
                 partidoVereador.setText(votoVereador.getPartido());
             } else {
                 nomeVereador.setText("Voto nulo");
+                Toast.makeText(this, "Vote em um vereador", Toast.LENGTH_LONG);
+                confirmar.setEnabled(false);
             }
             if (getIntent().getStringExtra("token") != null) {
                 token = getIntent().getStringExtra("token");
