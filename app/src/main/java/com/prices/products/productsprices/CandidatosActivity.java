@@ -1,6 +1,7 @@
 package com.prices.products.productsprices;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -18,6 +19,7 @@ public class CandidatosActivity extends AppCompatActivity {
 
     private Candidato votoPrefeito;
     private Candidato votoVereador;
+    private Candidato candidatoSelecionado;
     private String token;
 
     private TextView nomeCandidato;
@@ -44,11 +46,10 @@ public class CandidatosActivity extends AppCompatActivity {
                 votoPrefeito = (Candidato) getIntent().getSerializableExtra("votoPrefeito");
             }
             if (getIntent().getSerializableExtra("candidatoSelecionado") != null) {
-                Candidato c = (Candidato) getIntent().getSerializableExtra("candidatoSelecionado");
+                candidatoSelecionado = (Candidato) getIntent().getSerializableExtra("candidatoSelecionado");
                 tipo = getIntent().getIntExtra("tipo", 0);
-                nomeCandidato.setText(c.getNome());
-                partidoCandidato.setText(c.getPartido());
-                imageView.setImageBitmap(Utils.stringToBitMap(getIntent().getStringExtra("imagem")));
+                nomeCandidato.setText(candidatoSelecionado.getNome());
+                partidoCandidato.setText(candidatoSelecionado.getPartido());
             }
             if (getIntent().getSerializableExtra("votoVereador") != null) {
                 votoVereador = (Candidato) getIntent().getSerializableExtra("votoVereador");
@@ -65,6 +66,7 @@ public class CandidatosActivity extends AppCompatActivity {
             }
         });
 
+        new DownloadImage(this, candidatoSelecionado.getFotoUrl()).execute();
     }
 
     @Override
@@ -139,6 +141,10 @@ public class CandidatosActivity extends AppCompatActivity {
             votoVereador = (Candidato) getIntent().getSerializableExtra("candidatoSelecionado");
         }
         openActivity(DashboardActivity.class);
+    }
+
+    public void onAfterBuscarImagem(Bitmap bitmap) {
+        imageView.setImageBitmap(bitmap);
     }
 
 

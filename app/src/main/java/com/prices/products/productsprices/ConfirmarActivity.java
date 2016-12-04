@@ -1,7 +1,9 @@
 package com.prices.products.productsprices;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -125,7 +127,19 @@ public class ConfirmarActivity extends AppCompatActivity {
     }
 
     public void onAfterVotar(String message) {
-        Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmarActivity.this);
+        builder.setTitle("Sucesso");
+        builder.setMessage(message);
+        builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.create().show();
+
+
         openActivity(DashboardActivity.class);
     }
 

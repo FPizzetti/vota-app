@@ -85,11 +85,9 @@ public class PrefeitoActivity extends AppCompatActivity {
     private void openActivity(Class activity) {
         Intent i = new Intent(this, activity);
         if (votoVereador != null) {
-            votoVereador.setFoto(null);
             i.putExtra("votoVereador", votoVereador);
         }
         if (votoPrefeito != null) {
-            votoPrefeito.setFoto(null);
             i.putExtra("votoPrefeito", votoPrefeito);
         }
         if (token != null) {
@@ -101,18 +99,14 @@ public class PrefeitoActivity extends AppCompatActivity {
     private void openActivity(Candidato candidato) {
         Intent i = new Intent(this, CandidatosActivity.class);
         if (votoVereador != null) {
-            votoVereador.setFoto(null);
             i.putExtra("votoVereador", votoVereador);
         }
         if (votoPrefeito != null) {
-            votoPrefeito.setFoto(null);
             i.putExtra("votoPrefeito", votoPrefeito);
         }
         if (token != null) {
             i.putExtra("token", token);
         }
-        i.putExtra("imagem", Utils.bitMapToString(candidato.getFoto()));
-        candidato.setFoto(null);
         i.putExtra("candidatoSelecionado", candidato);
         i.putExtra("tipo", 1);
         startActivity(i);

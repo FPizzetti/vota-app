@@ -9,7 +9,7 @@ public class Candidato implements Serializable {
     private String id;
     private String nome;
     private String partido;
-    private Bitmap foto;
+    private transient Bitmap foto;
     private String fotoUrl;
 
     public String getId() {
