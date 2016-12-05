@@ -1,8 +1,11 @@
 package com.prices.products.productsprices;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Process;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,7 +36,7 @@ public class CandidatosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_confirmar);
+        setContentView(R.layout.activity_candidatos);
 
         nomeCandidato = (TextView) findViewById(R.id.nomeCandidato);
         partidoCandidato = (TextView) findViewById(R.id.partidoCandidato);
@@ -92,7 +95,9 @@ public class CandidatosActivity extends AppCompatActivity {
                 openActivity(CandidatosActivity.class);
                 return true;
             case R.id.sair:
-                openActivity(LoginActivity.class);
+                Intent i = new Intent(this, LoginActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
                 finish();
                 return true;
             default:
@@ -135,12 +140,25 @@ public class CandidatosActivity extends AppCompatActivity {
     }
 
     private void votar() {
+        String message = "";
         if (tipo == 1) {
             votoPrefeito = (Candidato) getIntent().getSerializableExtra("candidatoSelecionado");
+            message = "Prefeito selecionado com sucesso";
         } else {
             votoVereador = (Candidato) getIntent().getSerializableExtra("candidatoSelecionado");
+            message = "Vereador selecionado com sucesso";
         }
-        openActivity(DashboardActivity.class);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Sucesso");
+        builder.setMessage(message);
+        builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                openActivity(DashboardActivity.class);
+            }
+        });
+        builder.create().show();
     }
 
     public void onAfterBuscarImagem(Bitmap bitmap) {

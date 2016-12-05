@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
             if (jSONObject != null) {
                 try {
                     onLoginSuccess(jSONObject.getString("token"));
-                }catch (Exception e){
+                } catch (Exception e) {
                     erroAoRealizarLogin("Título e/ou senha incorretos");
                 }
             } else {

@@ -1,6 +1,7 @@
 package com.prices.products.productsprices;
 
 import android.content.Intent;
+import android.os.Process;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -74,7 +75,9 @@ public class PrefeitoActivity extends AppCompatActivity {
                 openActivity(ConfirmarActivity.class);
                 return true;
             case R.id.sair:
-                openActivity(LoginActivity.class);
+                Intent i = new Intent(this, LoginActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
                 finish();
                 return true;
             default:

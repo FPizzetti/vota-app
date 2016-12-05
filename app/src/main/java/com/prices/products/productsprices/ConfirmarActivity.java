@@ -3,6 +3,7 @@ package com.prices.products.productsprices;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -98,7 +99,9 @@ public class ConfirmarActivity extends AppCompatActivity {
                 openActivity(ConfirmarActivity.class);
                 return true;
             case R.id.sair:
-                openActivity(LoginActivity.class);
+                Intent i = new Intent(this, LoginActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
                 finish();
                 return true;
             default:
@@ -134,13 +137,12 @@ public class ConfirmarActivity extends AppCompatActivity {
         builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                openActivity(DashboardActivity.class);
             }
         });
         builder.create().show();
 
 
-        openActivity(DashboardActivity.class);
     }
 
 

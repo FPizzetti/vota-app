@@ -2,6 +2,7 @@ package com.prices.products.productsprices;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -75,7 +76,9 @@ public class DashboardActivity extends AppCompatActivity {
                 openActivity(ConfirmarActivity.class);
                 return true;
             case R.id.sair:
-                openActivity(LoginActivity.class);
+                Intent i = new Intent(this, LoginActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
                 finish();
                 return true;
             default:
@@ -96,6 +99,7 @@ public class DashboardActivity extends AppCompatActivity {
         if (token != null) {
             i.putExtra("token", token);
         }
+
         startActivity(i);
     }
 }

@@ -26,27 +26,26 @@
         android:id="@+id/nomeCandidato"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_below="@+id/imageView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="43dp" />
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="43dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <TextView
         android:id="@+id/partidoCandidato"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_alignTop="@+id/nomeCandidato"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="34dp" />
+        android:layout_alignTop="@+id/nomeCandidato"
+        android:layout_marginTop="34dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <ImageView
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        app:srcCompat="@mipmap/ic_launcher"
         android:id="@+id/imageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
